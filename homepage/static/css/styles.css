@@ -1,0 +1,42 @@
+.sidebar-nav {
+    margin-top: 20px;
+    padding: 0;
+    list-style: none;
+}
+
+.slider {
+    -webkit-appearance: none;
+    width: inherit;
+    height: 8px;
+    border-radius: 5px;
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7; /* Начальное значение прозрачности */
+    -webkit-transition: .15s;
+    transition: opacity .15s; /* Время применения прозрачности */
+}
+
+.slider:hover {
+    opacity: 1; /* Конечное значение прозрачности */
+}
+
+.slider:-webkit-slider-thumb {
+     -webkit-appearance: none;
+     width: 15px;
+     height: 15px;
+     border-radius: 50%;
+     background: #c59333;
+     cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: #c59333;
+  cursor: pointer;
+}
+
+.homepage-section {
+    height:400px;
+}

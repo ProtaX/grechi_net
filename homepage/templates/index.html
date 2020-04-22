@@ -1,0 +1,38 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<div class="container-fluid homepage-section" id="section1">
+    <div class="row">
+      <h1>Гречи нет</h1>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-sm-4">
+            <h2>Пакетов гречи: <span id="packages-count">1</span></h2>
+            <input type="range" min="1" max="100" value="1" class="slider" id="packages-count-slider">
+            <h2>Приемов гречи в день: <span id="meals-per-day">2</span></h2>
+            <input type="range" min="1" max="5" value="2" class="slider" id="meals-per-day-slider">
+        </div>
+        <div class="col-sm-4">
+            <h2>Дней карантина: <span id="quar-days">14</span></h2>
+            <input type="range" min="1" max="365" value="14" class="slider" id="quar-days-slider">
+            <h2>Голодных людей: <span id="hungry-people">1</span></h2>
+            <input type="range" min="1" max="10" value="1" class="slider" id="hungry-people-slider">
+        </div>
+    </div>
+</div>
+<div class="container homepage-section">
+        <div class="card">
+        <div class="card-header"><h1>Опции</h1></div>
+        <div id="options" class="collapse show" data-parent="#accordion">
+            <div class="card-body">
+                <h2>Опция 1</h2>
+                <h2>Опция 2</h2>
+                <h2>Опция 3</h2>
+            </div>
+        </div>
+        </div>
+</div>
+<div class="container homepage-section" id="about-us">
+    <h1>О нас</h1>
+</div>
+{% endblock %}
