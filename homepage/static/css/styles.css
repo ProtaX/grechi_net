@@ -14,6 +14,8 @@
     opacity: 0.7; /* Начальное значение прозрачности */
     -webkit-transition: .15s;
     transition: opacity .15s; /* Время применения прозрачности */
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .slider:hover {

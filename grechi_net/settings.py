@@ -25,7 +25,10 @@ SECRET_KEY = 'vijpdmt=yw_+i5cu64we4@z^8$#zadd#7sw$v3w761do@4+eo0'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '25.131.45.146',
+    '127.0.0.1',
+]
 
 
 # Application definition
