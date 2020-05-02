@@ -14,17 +14,24 @@
   <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 
-<body data-spy="scroll" data-target=".navbar" data-offset="100">
+<body data-spy="scroll" data-target=".navbar" data-offset="100" style="-webkit-font-smoothing: antialiased">
   {% block sidebar %}
   <nav class="navbar navbar-expand-sm bg-light navbar-light fixed-top">
-    <ul class="navbar-nav">
-      <li class="nav-item active">
-        <a class="nav-link" href="{% url 'index' %}">Гречи нет</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#about-us">О нас</a>
-      </li>
-    </ul>
+    <a class="navbar-brand" href="{% url 'index' %}">Гречи нет</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#homepage-navbar-menu" aria-controls="homepage-navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="homepage-navbar-menu">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="#about-us">О нас</a>
+        </li>
+      </ul>
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="Email" aria-label="Следить">
+        <button class="btn btn-dark my-2 my-sm-0" type="submit">Участвовать</button>
+      </form>
+    </div>
   </nav>
   {% endblock %}
   {% block content %}{% endblock %}

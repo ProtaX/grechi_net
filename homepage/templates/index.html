@@ -5,8 +5,9 @@
     <div class="row">
       <h1>Гречи нет</h1>
     </div>
-    <div class="row justify-content-center">
-        <div class="col-sm-4">
+    <div class="container-fluid" id="homepage-calc-container">
+    <div class="row justify-content-center" id="homepage-blurred-section">
+        <div class="col-lg-6">
             <h2>Хватит на <span id="days-enough">1</span> <span id="dney">день</span></h2>
             <h3>Пакетов гречи: <span id="packages-count">1</span></h3>
             <input type="range" min="1" max="100" value="1" class="slider" id="packages-count-slider">
@@ -18,26 +19,26 @@
                 <div id="days-options" class="collapse show" data-parent="#homepage-options-days-card">
                     <div class="card-body">
                         <h4>Приемов гречи в день: <span id="meals-per-day-days">2</span></h4>
-                        <input type="range" min="1" max="5" value="2" class="slider" id="meals-per-day-slider-days">
+                        <input type="range" min="1" max="5" value="2" class="slider slider-opt" id="meals-per-day-slider-days">
                     </div>
                     <div class="card-body">
                         <h4>Гречи за прием: <span id="wb-per-meal-days">200</span> гр</h4>
-                        <input type="range" min="50" max="500" value="200" class="slider" id="wb-per-meal-slider-days">
+                        <input type="range" min="50" max="500" value="200" class="slider slider-opt" id="wb-per-meal-slider-days">
                     </div>
                     <div class="card-body">
                         <h4>Объем пакета гречи: <span id="package-volume-days">1000</span> гр</h4>
-                        <input type="range" min="100" max="2000" value="100" class="slider" id="package-volume-slider-days">
+                        <input type="range" min="100" max="2000" value="1000" class="slider slider-opt" id="package-volume-slider-days">
                     </div>
                     <div class="card-body">
                         <h4>Голодных людей: <span id="hungry-people-days">1</span></h4>
-                        <input type="range" min="1" max="10" value="1" class="slider" id="hungry-people-slider-days">
+                        <input type="range" min="1" max="10" value="1" class="slider slider-opt" id="hungry-people-slider-days">
                     </div>
                 </div>
             </div>
             </div>
         </div>
-        <div class="col-sm-4">
-            <h2>Нужно <span id="wb-packages-enough">1</span> <span id="paketov">пакет</span> гречи</h2>
+        <div class="col-lg-6">
+            <h2><span id="nujno">Нужен</span> <span id="wb-packages-enough">1</span> <span id="paketov">пакет</span> гречи</h2>
             <h3>Дней карантина: <span id="days">14</span></h3>
             <input type="range" min="1" max="365" value="14" class="slider" id="days-slider">
             <div id="homepage-options-wb-card">
@@ -48,24 +49,25 @@
                 <div id="wb-options" class="collapse show" data-parent="#homepage-options-wb-card">
                     <div class="card-body">
                         <h4>Приемов гречи в день: <span id="meals-per-day-wb">2</span></h4>
-                        <input type="range" min="1" max="5" value="2" class="slider" id="meals-per-day-slider-wb">
+                        <input type="range" min="1" max="5" value="2" class="slider slider-opt" id="meals-per-day-slider-wb">
                     </div>
                     <div class="card-body">
                         <h4>Гречи за прием: <span id="wb-per-meal-wb">200</span> гр</h4>
-                        <input type="range" min="50" max="500" value="200" class="slider" id="wb-per-meal-slider-wb">
+                        <input type="range" min="50" max="500" value="200" class="slider slider-opt" id="wb-per-meal-slider-wb">
                     </div>
                     <div class="card-body">
                         <h4>Объем пакета гречи: <span id="package-volume-wb">1000</span> гр</h4>
-                        <input type="range" min="100" max="2000" value="100" class="slider" id="package-volume-slider-wb">
+                        <input type="range" min="100" max="2000" value="1000" class="slider slider-opt" id="package-volume-slider-wb">
                     </div>
                     <div class="card-body">
                         <h4>Голодных людей: <span id="hungry-people-wb">1</span></h4>
-                        <input type="range" min="1" max="10" value="1" class="slider" id="hungry-people-slider-wb">
+                        <input type="range" min="1" max="10" value="1" class="slider slider-opt" id="hungry-people-slider-wb">
                     </div>
                 </div>
             </div>
 
         </div>
+    </div>
     </div>
 </div>
 <div class="container homepage-section">
@@ -73,5 +75,10 @@
 </div>
 <div class="container homepage-section" id="about-us">
     <h1>О нас</h1>
+    <p style="font-weight-lighter">
+        <div id="homepage-about-us">
+            Да это ж я, Арсений Карпенко, не узнали?
+        </div>
+    </p>
 </div>
 {% endblock %}

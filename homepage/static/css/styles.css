@@ -22,23 +22,54 @@
     opacity: 1; /* Конечное значение прозрачности */
 }
 
-.slider:-webkit-slider-thumb {
+input[type=range]::-webkit-slider-thumb {
      -webkit-appearance: none;
      width: 15px;
      height: 15px;
      border-radius: 50%;
-     background: #c59333;
+     background: #523d15 ;
      cursor: pointer;
 }
 
-.slider::-moz-range-thumb {
+input[type=range]::-moz-range-thumb {
   width: 15px;
   height: 15px;
   border-radius: 50%;
-  background: #c59333;
+  background: #523d15 ;
   cursor: pointer;
 }
 
 .homepage-section {
-    height:400px;
+    padding-right: 0px;
+    padding-left: 0px;
+    margin-bottom: 50px;
+}
+
+#homepage-calc-container {
+    background-image: url(../img/buckwheat_home.jpg);
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    padding: 20px;
+}
+
+#homepage-blurred-section {
+    backdrop-filter: blur(20px) brightness(120%);
+    -webkit-backdrop-filter: blur(10px);
+    margin: 30px;
+    border-radius: 5px;
+    padding: 25px;
+}
+
+.col-sm-4 {
+    margin: 20px;
+}
+
+#homepage-about-us {
+    font-size: 25px;
+}
+
+.slider-opt {
+    width: calc(100% - 50px)
 }
