@@ -27,10 +27,22 @@
           <a class="nav-link" href="#about-us">О нас</a>
         </li>
       </ul>
-      <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="Email" aria-label="Следить">
+      {% if is_participant_email_valid == False %}
+      <div class="alert alert-warning alert-dismissible my-2 my-lg-0">
+        <button type="button" class="close" data-dismiss="alert" id="part-email-close">&times;</button>
+        <strong>Ошибка в email.</strong> Пожалуйста, введите свой email</a>.
+      </div>
+      {% endif %}
+      {% if participant_email%}
+      <h4>{{participant_email}}</h4>
+      {% endif %}
+      {% if not participant_email %}
+      <form class="form-inline my-2 my-lg-0" action="{% url 'add_participant' %}" method="post">
+        {% csrf_token %}
+        <input class="form-control mr-sm-2" type="email" placeholder="Email" aria-label="Следить" id="id_email" name="email" required />
         <button class="btn btn-dark my-2 my-sm-0" type="submit">Участвовать</button>
       </form>
+      {% endif %}
     </div>
   </nav>
   {% endblock %}

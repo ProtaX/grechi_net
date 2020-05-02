@@ -12,7 +12,6 @@ class VisitorData(models.Model):
     weight_per_meal = models.IntegerField(validators=[v.MaxValueValidator(500), v.MinValueValidator(100)], default=200)
     hungry_people = models.IntegerField(validators=[v.MaxValueValidator(10), v.MinValueValidator(1)], default=1)
     cookie = models.CharField(max_length=30, null=True)
-    # TODO: Meal field (kkal)
 
     class Meta:
         ordering = ["date", "email"]
