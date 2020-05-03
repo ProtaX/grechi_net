@@ -5,13 +5,13 @@ from django.urls import reverse
 
 class VisitorData(models.Model):
     email = models.EmailField(help_text="Enter your email", primary_key=True)
+    cookie = models.CharField(max_length=128, null=True, unique=True)
     date = models.DateField(auto_now=True)
-    package_count = models.IntegerField(validators=[v.MaxValueValidator(100), v.MinValueValidator(1)], default=1)
+    packages_count = models.IntegerField(validators=[v.MaxValueValidator(100), v.MinValueValidator(1)], default=1)
     meals_per_day = models.IntegerField(validators=[v.MaxValueValidator(5), v.MinValueValidator(1)], default=2)
-    package_weight = models.IntegerField(validators=[v.MaxValueValidator(5000), v.MinValueValidator(100)], default=1000)
-    weight_per_meal = models.IntegerField(validators=[v.MaxValueValidator(500), v.MinValueValidator(100)], default=200)
+    package_volume = models.IntegerField(validators=[v.MaxValueValidator(5000), v.MinValueValidator(100)], default=1000)
+    wb_per_meal = models.IntegerField(validators=[v.MaxValueValidator(500), v.MinValueValidator(100)], default=200)
     hungry_people = models.IntegerField(validators=[v.MaxValueValidator(10), v.MinValueValidator(1)], default=1)
-    cookie = models.CharField(max_length=30, null=True)
 
     class Meta:
         ordering = ["date", "email"]

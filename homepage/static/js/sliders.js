@@ -93,7 +93,6 @@ function updateWbEnough() {
     }
 }
 
-
 // Days enough sliders
 packages_count_slider.oninput = function() {
     packages_count_out.innerHTML = this.value;

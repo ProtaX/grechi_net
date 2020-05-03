@@ -33,20 +33,35 @@
         <strong>Ошибка в email.</strong> Пожалуйста, введите свой email</a>.
       </div>
       {% endif %}
+      {% if is_email_known == True %}
+      <div class="alert alert-success alert-dismissible my-2 my-lg-0">
+        <button type="button" class="close" data-dismiss="alert" id="part-email-close">&times;</button>
+        <strong>Уже с нами?</strong> Проверьте ваш e-mail, чтобы подтвердить, что это вы</a>.
+      </div>
+      {% endif %}
       {% if participant_email%}
-      <h4>{{participant_email}}</h4>
+      <div class="my-2 my-lg-0" id="navbar-hello-msg">
+        <span>Привет, </span>
+        <span id="navbar-email">{{participant_email}}</span>
+      </div>
       {% endif %}
       {% if not participant_email %}
-      <form class="form-inline my-2 my-lg-0" action="{% url 'add_participant' %}" method="post">
+      <form class="form-inline my-2 my-lg-0" action="{% url 'add_participant' %}" method="post" id="participant-form">
         {% csrf_token %}
         <input class="form-control mr-sm-2" type="email" placeholder="Email" aria-label="Следить" id="id_email" name="email" required />
-        <button class="btn btn-dark my-2 my-sm-0" type="submit">Участвовать</button>
+        <input type="hidden" id="packages_count_h" name="packages_count" value="" />
+        <input type="hidden" id="meals_per_day_h" name="meals_per_day" value="" />
+        <input type="hidden" id="wb_per_meal_h" name="wb_per_meal" value="" />
+        <input type="hidden" id="package_volume_h" name="package_volume" value="" />
+        <input type="hidden" id="hungry_people_h" name="hungry_people" value="" />
+        <button class="btn btn-dark my-2 my-sm-0" type="button" id="submit-btn">Участвовать</button>
       </form>
+      <script src="{% static 'js/participant-form.js' %}"></script>
       {% endif %}
     </div>
   </nav>
   {% endblock %}
   {% block content %}{% endblock %}
- <script src="{% static 'js/sliders.js' %}"></script>
+  <script src="{% static 'js/sliders.js' %}"></script>
 </body>
 </html>
