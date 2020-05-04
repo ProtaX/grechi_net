@@ -36,16 +36,17 @@
       {% if is_email_known == True %}
       <div class="alert alert-success alert-dismissible my-2 my-lg-0">
         <button type="button" class="close" data-dismiss="alert" id="part-email-close">&times;</button>
-        <strong>Уже с нами?</strong> Проверьте ваш e-mail, чтобы подтвердить, что это вы</a>.
+        <strong>Уже с нами?</strong> Проверьте ваш <a href="{% url 'email_invite' participant_email %}">e-mail</a>, чтобы подтвердить, что это вы.
       </div>
       {% endif %}
-      {% if participant_email%}
+      {% if participant_email and is_user_auth == True %}
       <div class="my-2 my-lg-0" id="navbar-hello-msg">
         <span>Привет, </span>
         <span id="navbar-email">{{participant_email}}</span>
+        <a class="navbar-logout" href="{% url 'logout' %}" style="padding-left: 10px; color: black;">Выйти?</a>
       </div>
       {% endif %}
-      {% if not participant_email %}
+      {% if is_user_auth == False %}
       <form class="form-inline my-2 my-lg-0" action="{% url 'add_participant' %}" method="post" id="participant-form">
         {% csrf_token %}
         <input class="form-control mr-sm-2" type="email" placeholder="Email" aria-label="Следить" id="id_email" name="email" required />

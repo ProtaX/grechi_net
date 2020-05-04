@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Подтверждение e-mail</title>
+</head>
+  <h1>Это письмо пришло на почту {{email}}</h1>
+  <h3>Подтвердите, что это вы</h3>
+  <h3>Для этого перейдите по <a href="{% url 'validate_invite' invite_id %}">ссылке</a></h3>
+  <h3>Ссылку никому не показывать!</h3>
+</body>
+</html>

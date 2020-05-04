@@ -18,12 +18,25 @@ class VisitorData(models.Model):
 
     def __str__(self):
         return "User " + self.email + \
-               " visited on " + self.date + \
-               "[package_count=" + self.package_count + \
-               "meals_per_day=" + self.meals_per_day + \
-               "package_weight=" + self.package_weight + \
-               " weight_per_meal=" + self.weight_per_meal + \
+               " participated on " + self.date + \
+               "[packages_count=" + self.packages_count + \
+               " meals_per_day=" + self.meals_per_day + \
+               " package_volume=" + self.package_volume + \
+               " wb_per_meal=" + self.wb_per_meal + \
                " hungry_people=" + self.hungry_people + "]"
 
-    def get_absolute_url(self):
-        return reverse('visitordata-detail', args=[str(self.id)])
+
+class InviteEntry(models.Model):
+    email = models.EmailField(help_text="Enter your email", primary_key=True)
+    invite_id = models.CharField(max_length=128, null=True, unique=True)
+    date = models.DateTimeField(auto_now=True)
+    is_validated = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ['date', '-is_validated']
+
+    def __str__(self):
+        return "Invite # " + self.invite_id + \
+                " sent on " + self.date + \
+                " to " + self.email + \
+                " validated: " + self.is_validated
