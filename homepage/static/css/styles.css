@@ -60,6 +60,7 @@ input[type=range]::-moz-range-thumb {
     margin: 30px;
     border-radius: 5px;
     padding: 25px;
+    padding-top: 10px;
 }
 
 .col-sm-4 {
@@ -80,6 +81,18 @@ input[type=range]::-moz-range-thumb {
     margin-right: 20px;
 }
 
-#part-email-close {
+.close {
     padding-top: 5px;
+}
+
+.homepage-calc {
+    padding-top: 15px;
+}
+
+#homepage-load-wb-prices {
+    align-self: center;
+}
+
+#homepage-load-wb-prices-sipnner {
+    margin-left: 5px;
 }

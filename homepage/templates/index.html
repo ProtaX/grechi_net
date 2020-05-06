@@ -7,7 +7,7 @@
     </div>
     <div class="container-fluid" id="homepage-calc-container">
     <div class="row justify-content-center" id="homepage-blurred-section">
-        <div class="col-lg-6">
+        <div class="col-lg-6 homepage-calc">
             <h2>Хватит на <span id="days-enough">1</span> <span id="dney">день</span></h2>
             <h3>Пакетов гречи: <span id="packages-count">1</span></h3>
             <input type="range" min="1" max="100" value="1" class="slider" id="packages-count-slider">
@@ -37,7 +37,7 @@
             </div>
             </div>
         </div>
-        <div class="col-lg-6">
+        <div class="col-lg-6 homepage-calc">
             <h2><span id="nujno">Нужен</span> <span id="wb-packages-enough">1</span> <span id="paketov">пакет</span> гречи</h2>
             <h3>Дней карантина: <span id="days">14</span></h3>
             <input type="range" min="1" max="365" value="14" class="slider" id="days-slider">
@@ -68,13 +68,20 @@
         </div>
     </div>
     </div>
+    </div>
 </div>
-<div class="container homepage-section">
-
+<div class="container homepage-section" id="wb-prices">
+    <div class="d-flex justify-content-center">
+        <button id="homepage-load-wb-prices" class="btn btn-dark"><span id="load-btn-text">Загрузить цены на гречу</span><div class="spinner-border spinner-border-sm" id="homepage-load-wb-prices-sipnner" hidden="true"></div></div></button>
+        <p style="font-weight: lighter;">
+            <div id="homepage-wb-prices">
+            </div>
+        </p>
+    </div>
 </div>
 <div class="container homepage-section" id="about-us">
     <h1>О нас</h1>
-    <p style="font-weight-lighter">
+    <p style="font-weight: lighter;">
         <div id="homepage-about-us">
             Да это ж я, Арсений Карпенко, не узнали?
         </div>

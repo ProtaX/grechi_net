@@ -1,0 +1,9 @@
+<ul>
+    {% if product_list %}
+        {% for product in product_list %}
+            {% for key, value in product.items %}
+                <li>{{ key }}: {{ value }}</li>
+            {% endfor %}
+        {% endfor %}
+    {% endif %}
+</ul>

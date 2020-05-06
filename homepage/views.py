@@ -8,6 +8,8 @@ from django.contrib.auth.hashers import SHA1PasswordHasher
 import pytz
 import datetime as dt
 from django.utils.dateparse import parse_datetime
+from bs4 import BeautifulSoup
+import requests as r
 
 
 def index(request):
@@ -28,6 +30,7 @@ def index(request):
 
 def add_participant(request):
     context = {}
+    context['is_user_auth'] = False
     if request.method == 'POST':
         form = ParticipateForm(request.POST)
 
@@ -46,7 +49,6 @@ def add_participant(request):
                                     invite_id=tmp_uid)
                 invite.save()
                 context['is_email_known'] = True
-                context['is_user_auth'] = False
 
             except ObjectDoesNotExist:
                 # Посетитель хочет участвовать впервые - созадим запись о нем
@@ -114,7 +116,7 @@ def validate_invite(request, invite_id):
                 invite.is_validated = True
                 invite.save()
                 print('[validate_invite], invite invalidated')
-                # TODO: удалить эту запись из базы
+                # TODO: удалить эту запись из базы?
             except:
                 pass
     except:
@@ -122,6 +124,39 @@ def validate_invite(request, invite_id):
     
     return redirect('index')
 
+def update_participant_data(request):
+    pass
+
 def logout(request):
     request.session.clear()
     return redirect('index')
+
+def load_prices(request):
+    use_mock = 1
+    product_list = []
+
+    if not use_mock:
+        yandex_market_url = 'https://market.yandex.ru/catalog--grechnevaia-krupa/72212/list'
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:76.0) Gecko/20100101 Firefox/76.0',
+            'Connection': 'keep-alive'
+        }
+        s = r.Session()
+        page = s.get(yandex_market_url, headers=headers).text
+        soup = BeautifulSoup(page, features="html.parser")
+        #product_list_container_html = soup.find('div', {'class':'n-snippet-list'})
+        product_list_html = soup.find_all('div', {'class':'n-snippet-card2'})
+        for product_html in product_list_html:
+            product_name = product_html.find('h3', {'class':'n-snippet-card2__title'}).text
+            product_price = product_html.find('div', {'class':'price'}).text
+            product_list.append({product_name: product_price})
+    else:
+        product_list = [{'Гречневая крупа Мистраль Ядрица 900 г': '115\xa0₽'}, {'Гречневая крупа Мистраль Ядрица 2 кг': '216\xa0₽'}, {'Група Мистраль Ядрица 5 кг': '569\xa0₽'}, {'Гречневая крупа Мистраль Зелёная 450 г': '81\xa0₽'}, {'Гречневая крупа Мистралая 900 г': '136\xa0₽'}, {'Гречневая крупа Агро-Альянс ядрица Экстра: 900 г': '104\xa0₽'}, 
+                        {'Гречневая крупа Увелка крупкаах для варки 400 г': '498\xa0₽'}, {'Гречневая крупа Здравое зерно зелёная 500 г': '125\xa0₽'}, {'Гречневая крупа Макфа яд': '108\xa0₽'}, {'Гречневая крупа Увелка Ядрица в пакетиках для варки 400 г': '81\xa0₽'}, {'Гречневая крупа Мистраль Ядрицельная в пакетиках 400 г': '79\xa0₽'}, 
+                        {'Гречневая крупа Maltagliati Ядрица быстроразваривающаяся 900 г': '86\xa0₽'}, {'крупа Агрохолдинг СТЕПЬ ядрица 900 г': '79\xa0₽'}]
+
+    return render(
+        request,
+        'prices.html',
+        context={'product_list':product_list[:10]}
+    )
