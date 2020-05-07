@@ -18,15 +18,16 @@ class VisitorData(models.Model):
 
     def __str__(self):
         return "User " + self.email + \
-               " participated on " + self.date + \
-               "[packages_count=" + self.packages_count + \
-               " meals_per_day=" + self.meals_per_day + \
-               " package_volume=" + self.package_volume + \
-               " wb_per_meal=" + self.wb_per_meal + \
-               " hungry_people=" + self.hungry_people + "]"
+               " participated on " + str(self.date) + \
+               "[packages_count=" + str(self.packages_count) + \
+               " meals_per_day=" + str(self.meals_per_day) + \
+               " package_volume=" + str(self.package_volume) + \
+               " wb_per_meal=" + str(self.wb_per_meal) + \
+               " hungry_people=" + str(self.hungry_people) + "]"
 
 
 class InviteEntry(models.Model):
+    # Сохраним только последний инвайт для участника
     email = models.EmailField(help_text="Enter your email", primary_key=True)
     invite_id = models.CharField(max_length=128, null=True, unique=True)
     date = models.DateTimeField(auto_now=True)
@@ -37,6 +38,6 @@ class InviteEntry(models.Model):
 
     def __str__(self):
         return "Invite # " + self.invite_id + \
-                " sent on " + self.date + \
+                " sent on " + str(self.date) + \
                 " to " + self.email + \
-                " validated: " + self.is_validated
+                " validated: " + str(self.is_validated)

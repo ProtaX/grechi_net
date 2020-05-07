@@ -87,4 +87,14 @@
         </div>
     </p>
 </div>
+<div class="container homepage-section" id="feedback">
+    <h1>Отзывы</h1>
+    <p style="font-weight: lighter;">
+        <div id="homepage-feedback">
+            {% if is_user_auth == False %}
+            Оставлять отзывы могут только участники
+            {% endif %}
+        </div>
+    </p>
+</div>
 {% endblock %}

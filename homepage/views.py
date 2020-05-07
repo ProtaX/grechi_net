@@ -40,14 +40,22 @@ def add_participant(request):
             hasher = SHA1PasswordHasher()
             try:
                 participant = VisitorData.objects.get(email=email_from_form)
+                try:
+                    invite = InviteEntry.objects.get(email=email_from_form)
+                    if invite.is_validated == False:
+                        context['is_invite_exists'] = True
+                    else:
+                        raise ObjectDoesNotExist()
+                except:
+                    tmp_uid = hasher.encode(email_from_form, dt.datetime.now().__str__())
+                    invite = InviteEntry(email=email_from_form,
+                                        invite_id=tmp_uid)
+                    invite.save()
+                    context['is_invite_exists'] = False
                 # Здесь посетитель пытается участвовать, но запись о нем уже есть
                 # Для разрешения такой ситуации шлем ему письмо со ссылкой,
                 # он переходит по нашей ссылке - и 'входит' на сайт
                 
-                tmp_uid = hasher.encode(email_from_form, dt.datetime.now().__str__())
-                invite = InviteEntry(email=email_from_form,
-                                    invite_id=tmp_uid)
-                invite.save()
                 context['is_email_known'] = True
 
             except ObjectDoesNotExist:
@@ -120,7 +128,7 @@ def validate_invite(request, invite_id):
             except:
                 pass
     except:
-        pass
+        print('[validate_invite], invite no found: ' + invite_id)
     
     return redirect('index')
 

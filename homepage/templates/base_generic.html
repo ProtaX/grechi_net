@@ -26,6 +26,9 @@
         <li class="nav-item">
           <a class="nav-link" href="#about-us">О нас</a>
         </li>
+        <li class="nav-item"></li>
+          <a class="nav-link" href="#feedback">Отзывы</a>
+        </li>
       </ul>
       {% if is_participant_email_valid == False %}
       <div class="alert alert-warning alert-dismissible my-2 my-lg-0">
@@ -33,10 +36,16 @@
         <strong>Ошибка в email.</strong> Пожалуйста, введите свой email</a>.
       </div>
       {% endif %}
-      {% if is_email_known == True %}
+      {% if is_email_known == True and is_invite_exists == False %}
       <div class="alert alert-success alert-dismissible my-2 my-lg-0">
         <button type="button" class="close" data-dismiss="alert" style="padding-top: 5px;">&times;</button>
         <strong>Уже с нами?</strong> Проверьте ваш <a href="{% url 'email_invite' participant_email %}">e-mail</a>, чтобы подтвердить, что это вы.
+      </div>
+      {% endif %}
+      {% if is_email_known == True and is_invite_exists %}
+      <div class="alert alert-success alert-dismissible my-2 my-lg-0">
+        <button type="button" class="close" data-dismiss="alert" style="padding-top: 5px;">&times;</button>
+        <strong>Проверьте почту</strong> Проверьте ваш <a href="{% url 'email_invite' participant_email %}">e-mail</a>, приглашение уже было выслано
       </div>
       {% endif %}
       {% if participant_email and is_user_auth == True %}
