@@ -58,7 +58,7 @@
       {% if is_user_auth == False %}
       <form class="form-inline my-2 my-lg-0" action="{% url 'add_participant' %}" method="post" id="participant-form">
         {% csrf_token %}
-        <input class="form-control mr-sm-2" type="email" placeholder="Email" aria-label="Следить" id="id_email" name="email" required />
+        <input class="form-control mr-sm-2" type="email" placeholder="Email" aria-label="Участвовать" id="id_email" name="email" required />
         <input type="hidden" id="packages_count_h" name="packages_count" value="" />
         <input type="hidden" id="meals_per_day_h" name="meals_per_day" value="" />
         <input type="hidden" id="wb_per_meal_h" name="wb_per_meal" value="" />
@@ -74,5 +74,6 @@
   {% block content %}{% endblock %}
   <script src="{% static 'js/sliders.js' %}"></script>
   <script src="{% static 'js/load-prices.js' %}"></script>
+  <script src="{% static 'js/comments.js' %}"></script>
 </body>
 </html>

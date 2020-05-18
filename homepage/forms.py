@@ -9,3 +9,8 @@ class ParticipateForm(forms.Form):
     package_volume = forms.IntegerField(validators=[v.MaxValueValidator(5000), v.MinValueValidator(100)])
     wb_per_meal = forms.IntegerField(validators=[v.MaxValueValidator(500), v.MinValueValidator(100)])
     hungry_people = forms.IntegerField(validators=[v.MaxValueValidator(10), v.MinValueValidator(1)])
+
+class CommentForm(forms.Form):
+    email = forms.EmailField(help_text="Email", required=True)
+    nickname = forms.CharField(max_length=128)
+    text = forms.CharField(max_length=256)

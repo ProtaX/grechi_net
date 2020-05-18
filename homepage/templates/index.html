@@ -92,7 +92,21 @@
     <p style="font-weight: lighter;">
         <div id="homepage-feedback">
             {% if is_user_auth == False %}
-            Оставлять отзывы могут только участники
+            <span id="comment-warning">Оставлять отзывы могут только участники</span>
+            {% endif %}
+            <div class="row" id="homepage-feedback-block">
+                <div class="spinner-border spinner-border-sm" id="homepage-load-comments-sipnner" hidden="false"></div>
+            </div>
+            {% if is_user_auth == True %}
+            <div class="card comment-card-body" id="comment-form-container">
+                <form action="{% url 'add_comment' %}" method="post" id="comment-form">
+                    {% csrf_token %}
+                    <h4>Оставить отзыв:</h4>
+                    <input type="text" placeholder="Ваше имя" class="form-control comment-text" id="nickname" name="nickname" required>
+                    <textarea class="form-control comment-text" placeholder="Отзыв" rows="5" id="comment" name="comment" required></textarea>
+                    <button class="btn btn-dark my-2 my-sm-0" type="button" id="send-comment-btn">Отправить</button>
+                </form>
+            </div>
             {% endif %}
         </div>
     </p>

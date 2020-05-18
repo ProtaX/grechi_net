@@ -41,3 +41,42 @@ class InviteEntry(models.Model):
                 " sent on " + str(self.date) + \
                 " to " + self.email + \
                 " validated: " + str(self.is_validated)
+
+
+class Comment(models.Model):
+    comment_id = models.CharField(max_length=128, null=False, primary_key=True)
+    email = models.EmailField(null=False)
+    nickname = models.CharField(max_length=128, null=True)
+    date = models.DateTimeField(auto_now=True)
+    text = models.CharField(max_length=256, null=False)
+    likes = models.IntegerField(validators=[v.MinValueValidator(0)], default=0)
+    dislikes = models.IntegerField(validators=[v.MinValueValidator(0)], default=0)
+
+    # TODO: уникальная ссылка на отзыв
+
+    class Meta:
+        ordering = ['likes', 'date']
+
+    def __str__(self):
+        return "Comment # " + str(self.comment_id) + \
+                " created on " + str(self.date) + \
+                " by " + self.nickname + \
+                " aka " + self.email + \
+                " and said " + self.text + \
+                " has " + str(self.likes) + " likes " + \
+                " and " + str(self.dislikes) + " dislikes"
+
+
+class RatingEntry(models.Model):
+    comment_id = models.ForeignKey(Comment, on_delete=models.CASCADE)
+    email = models.ForeignKey(VisitorData, models.SET_NULL, blank=True, null=True)
+    ACTION_CHOICES = [
+        ('L', 'Like'),
+        ('D', 'Dislike')
+    ]
+    action = models.CharField(max_length=1, choices=ACTION_CHOICES)
+
+    def __str__(self):
+        return "User " + self.email + \
+                " commited " + self.action + \
+                " to comment # " + self.comment_id

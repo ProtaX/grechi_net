@@ -1,16 +1,20 @@
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render
 from django.shortcuts import redirect
+from django.contrib.auth.hashers import SHA1PasswordHasher
+from django.utils.dateparse import parse_datetime
 from .models import VisitorData
 from .models import InviteEntry
+from .models import Comment
+from .models import RatingEntry
 from .forms import ParticipateForm
-from django.contrib.auth.hashers import SHA1PasswordHasher
-import pytz
-import datetime as dt
-from django.utils.dateparse import parse_datetime
+from .forms import CommentForm
 from bs4 import BeautifulSoup
+import pytz
+import json
 import requests as r
-
+import random as rnd
+import datetime as dt
 
 def index(request):
     context = {}
@@ -67,7 +71,8 @@ def add_participant(request):
                                         package_volume=form.cleaned_data['package_volume'],
                                         hungry_people=form.cleaned_data['hungry_people'])
                 # cookie = hasher.encode(email_from_form, dt.datetime.now().__str__())
-                cookie = hasher.encode(email_from_form, '12345')
+                salt_num = int(rnd.random() * 10000000000000000)
+                cookie = hasher.encode(email_from_form, str(salt_num))
                 participant.cookie = cookie
                 participant.save()
                 request.session['cookie'] = cookie
@@ -120,8 +125,16 @@ def validate_invite(request, invite_id):
         else:
             try:
                 participant = VisitorData.objects.get(email=email)
+
+                salt_num = int(rnd.random() * 10000000000000000)
+                hasher = SHA1PasswordHasher()
+                cookie = hasher.encode(email, str(salt_num))
+
+                participant.cookie = cookie
                 request.session['cookie'] = participant.cookie
                 invite.is_validated = True
+
+                participant.save()
                 invite.save()
                 print('[validate_invite], invite invalidated')
                 # TODO: удалить эту запись из базы?
@@ -168,3 +181,55 @@ def load_prices(request):
         'prices.html',
         context={'product_list':product_list[:10]}
     )
+
+def load_comments(request):
+    last_update = request.GET['lastUpdate']
+    if (last_update is None or last_update == "0"):
+        print("Comments loading first time")
+    else:
+        print('Need to load comments after ' + last_update)
+    context = {'comments':[]}
+    
+    comments = Comment.objects.all()
+    # TODO: лайк/дизлайк коммента текущим пользователем
+    if len(comments) != 0:
+        for comment in comments:
+            comment_info = [comment.nickname,
+                            comment.text,
+                            comment.date,
+                            comment.likes,
+                            comment.dislikes]
+            context['comments'].append(comment_info)
+        new_last_comment = comments[0].date
+        context['lastComment'] = new_last_comment
+    else:
+        context['lastComment'] = '0'
+
+    return render(
+        request,
+        'comment-card.html',
+        context=context
+    )
+
+def add_comment(request):
+    if request.method == 'POST':
+        try:
+            email = VisitorData.objects.get(cookie=request.session['cookie']).email
+            nickname = request.POST['nickname']
+            text = request.POST['comment']
+            hasher = SHA1PasswordHasher()
+            salt_num = int(rnd.random() * 10000000000000000)
+            comment_id = hasher.encode(nickname, str(salt_num))
+            comment = Comment(comment_id=comment_id, 
+                                email=email, 
+                                nickname=nickname,
+                                text=text)
+            comment.save()
+        except:
+            return redirect('index')
+    else:
+        return redirect('index')
+    return redirect('index')
+
+def update_comment(request):
+    pass

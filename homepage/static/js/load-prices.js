@@ -3,13 +3,13 @@ var load_spinner = document.getElementById("homepage-load-wb-prices-sipnner")
 var data_container = document.getElementById("homepage-wb-prices")
 var load_btn_text = document.getElementById("load-btn-text")
 
-var httpRequest;
-var isDataLoading = false;
-var ajaxURL = 'load_prices'
+var httpRequestPrices;
+var isPricesLoading = false;
+var ajaxURLPrices = 'load_prices'
 
-load_btn.onclick = function() { makeAsyncRequest(httpRequest, ajaxURL); }
+load_btn.onclick = function() { getPricesAsync(httpRequestPrices, ajaxURLPrices); }
 
-function makeAsyncRequest(xhttpr, url) {
+function getPricesAsync(xhttpr, url) {
     if (window.XMLHttpRequest) {
         xhttpr = new XMLHttpRequest();
     if (xhttpr.overrideMimeType) {
@@ -32,14 +32,14 @@ function makeAsyncRequest(xhttpr, url) {
         return false;
     }
 
-    loadData(xhttpr, url);
+    loadPrices(xhttpr, url);
 }
 
-function loadData(xhttpr, url) {
-    if (isDataLoading) {
+function loadPrices(xhttpr, url) {
+    if (isPricesLoading) {
         return;
     }
-    isDataLoading = true;
+    isPricesLoading = true;
     load_spinner.hidden = false;
     load_btn.disabled = true;
     load_btn.className = 'btn btn-dark';
@@ -47,22 +47,22 @@ function loadData(xhttpr, url) {
 
     xhttpr.open('GET', url, true)
     xhttpr.send(null);
-    xhttpr.onreadystatechange = function() { onDataLoad(xhttpr); };
+    xhttpr.onreadystatechange = function() { onPricesLoad(xhttpr); };
 }
 
-function onDataLoad(xhttpr) {
+function onPricesLoad(xhttpr) {
     if (xhttpr.readyState == 4 ) {
         if (xhttpr.status == 200) {
             data_container.innerHTML = xhttpr.responseText;
-            load_btn_text.innerText = 'Загрузить цены на гречу'
+            load_btn_text.innerText = 'Загрузить цены на гречу';
         } else {
             load_btn.className = 'btn btn-danger';
-            load_btn_text.innerText = 'Ошибка. Попробуйте еще раз'
+            load_btn_text.innerText = 'Ошибка. Попробуйте еще раз';
         }
     } else {
         return;
     }
     load_spinner.hidden = true;
     load_btn.disabled = false;
-    isDataLoading = false;
+    isPricesLoading = false;
 }

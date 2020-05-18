@@ -96,3 +96,68 @@ input[type=range]::-moz-range-thumb {
 #homepage-load-wb-prices-sipnner {
     margin-left: 5px;
 }
+
+#comment-warning {
+    padding-bottom: 10px;
+}
+
+#homepage-feedback-block {
+    padding-top: 10px;
+}
+
+.comment-date {
+    color: darkgrey;
+    font-size: small;
+}
+
+.card-title {
+    margin-bottom: 0px;
+}
+
+.comment-header {
+    margin-bottom: 10px;
+}
+
+.rate-btn {
+    height: 15px;
+    width: 15px;
+}
+
+.card-footer {
+    background-color: white;
+    padding-right: 0px;
+    padding-left: 0px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.comment-card-body {
+    padding: 13px;
+}
+
+.comment-card {
+    width: 340px;
+}
+
+.comment-text {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.is-comment-good {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.rating-btns {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+#send-comment-btn {
+    margin-top: 10px !important;
+}
+
+#comment-form-container {
+    width: 250px;
+}
