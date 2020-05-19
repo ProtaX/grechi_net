@@ -136,7 +136,9 @@ input[type=range]::-moz-range-thumb {
 }
 
 .comment-card {
-    width: 340px;
+    width: 330px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .comment-text {
@@ -160,4 +162,10 @@ input[type=range]::-moz-range-thumb {
 
 #comment-form-container {
     width: 250px;
+    margin: 20px;
+}
+
+.delete-comment-btn {
+    border: 0px;
+    background-color: white;
 }

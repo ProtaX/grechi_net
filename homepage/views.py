@@ -3,6 +3,7 @@ from django.shortcuts import render
 from django.shortcuts import redirect
 from django.contrib.auth.hashers import SHA1PasswordHasher
 from django.utils.dateparse import parse_datetime
+from django.http import HttpResponse
 from .models import VisitorData
 from .models import InviteEntry
 from .models import Comment
@@ -183,27 +184,33 @@ def load_prices(request):
     )
 
 def load_comments(request):
-    last_update = request.GET['lastUpdate']
-    if (last_update is None or last_update == "0"):
+    last_comment = request.GET['lastComment']
+    if (last_comment is None or last_comment == '0'):
         print("Comments loading first time")
     else:
-        print('Need to load comments after ' + last_update)
+        print('Need to load comments after ' + last_comment)
     context = {'comments':[]}
     
     comments = Comment.objects.all()
+    is_comment_yours = False
+    visitor = None
+    try:
+        # TODO: брать только после полученной даты 
+        visitor = VisitorData.objects.get(cookie=request.session['cookie'])
+    except:
+        pass
     # TODO: лайк/дизлайк коммента текущим пользователем
-    if len(comments) != 0:
-        for comment in comments:
-            comment_info = [comment.nickname,
-                            comment.text,
-                            comment.date,
-                            comment.likes,
-                            comment.dislikes]
-            context['comments'].append(comment_info)
-        new_last_comment = comments[0].date
-        context['lastComment'] = new_last_comment
-    else:
-        context['lastComment'] = '0'
+    for comment in comments:
+        if visitor is not None and visitor.email == comment.email:
+            is_comment_yours = True
+        comment_info = [comment.nickname,
+                        comment.text,
+                        comment.date,
+                        comment.likes,
+                        comment.dislikes,
+                        is_comment_yours,
+                        comment.comment_id]
+        context['comments'].append(comment_info)
 
     return render(
         request,
@@ -229,7 +236,27 @@ def add_comment(request):
             return redirect('index')
     else:
         return redirect('index')
-    return redirect('index')
+    return HttpResponse()
 
 def update_comment(request):
-    pass
+    if request.method == 'POST':
+        req = json.loads(request.body)
+        comment_id = req['comment_id']
+        action = req['action']
+        try:
+            comment = Comment.objects.get(comment_id=comment_id)
+            visitor = VisitorData.objects.get(cookie=request.session['cookie'])
+        except:
+            return HttpResponse()
+
+        if action == 'delete':
+            if comment.email != visitor.email:
+                return HttpResponse()
+            comment.delete()
+        elif action == 'like':
+            pass
+        elif action == 'dislike':
+            pass
+        return HttpResponse()
+    else:
+        return redirect('index')

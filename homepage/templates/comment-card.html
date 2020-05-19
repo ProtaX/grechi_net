@@ -1,18 +1,29 @@
 {% for comment in comments %}
     <div class="comment-card col-sm-4">
         <div class="card card-body comment-card-body">
+            
             <div class="d-flex justify-content-between align-items-end comment-header">
                 <h4 class="card-title">{{ comment.0 }}</h4>
-                <span class="comment-date">{{ comment.2 }}</span>
+                <span class="comment-date">
+                    {% if comment.5 == True %}
+                    <span class="comment-yours">(Ваш)</span>
+                    {% endif %}
+                    {{ comment.2 }}
+                </span>
             </div>
             <p class="card-text">{{ comment.1 }}</p>
             <div class="d-flex flex-row card-footer align-items-center">
+                <input type="hidden" value="{{ comment.6 }}" class="comment-id">
+                {% csrf_token %}
                 <span class="is-comment-good ">Считаете отзыв полезным?</span>
                 <div class="btn-group btn-group-sm rating-btns">
                     {% load static %}
-                    <button type="button" class="btn btn-dark" data-toggle="popover" data-content="{{ comment.3 }}" data-placement="bottom" data-trigger="hover"><img src="{% static 'img/like-white.png' %}" class="rate-btn"/></button>
-                    <button type="button" class="btn btn-dark" data-toggle="popover" data-content="{{ comment.4 }}" data-placement="bottom" data-trigger="hover"><img src="{% static 'img/dislike-white.png' %}" class="rate-btn"/></button>
+                    <button type="button" class="btn btn-dark like-btn" data-toggle="popover" data-content="{{ comment.3 }}" data-placement="bottom" data-trigger="hover"><img src="{% static 'img/like-white.png' %}" class="rate-btn"/></button>
+                    <button type="button" class="btn btn-dark dislike-btn" data-toggle="popover" data-content="{{ comment.4 }}" data-placement="bottom" data-trigger="hover"><img src="{% static 'img/dislike-white.png' %}" class="rate-btn"/></button>
                 </div>
+                {% if comment.5 == True %}
+                <button type="button" class="delete-comment-btn"><img src="{% static 'img/delete-comment-bin.png' %}" class="rate-btn"/></button>
+                {% endif %}
             </div>
         </div>
     </div>

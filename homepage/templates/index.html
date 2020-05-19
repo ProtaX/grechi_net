@@ -99,7 +99,7 @@
             </div>
             {% if is_user_auth == True %}
             <div class="card comment-card-body" id="comment-form-container">
-                <form action="{% url 'add_comment' %}" method="post" id="comment-form">
+                <form action="{% url 'add_comment' %}" method="post" id="comment-form" name="comment_form">
                     {% csrf_token %}
                     <h4>Оставить отзыв:</h4>
                     <input type="text" placeholder="Ваше имя" class="form-control comment-text" id="nickname" name="nickname" required>

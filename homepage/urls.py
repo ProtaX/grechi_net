@@ -11,4 +11,5 @@ urlpatterns = [
     path('load_prices', views.load_prices, name='load_prices'),
     path('load_comments', views.load_comments, name='load_comments'),
     path('add_comment', views.add_comment, name='add_comment'),
+    path('update_comment', views.update_comment, name='update_comment'),
 ]

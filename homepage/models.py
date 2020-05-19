@@ -52,10 +52,8 @@ class Comment(models.Model):
     likes = models.IntegerField(validators=[v.MinValueValidator(0)], default=0)
     dislikes = models.IntegerField(validators=[v.MinValueValidator(0)], default=0)
 
-    # TODO: уникальная ссылка на отзыв
-
     class Meta:
-        ordering = ['likes', 'date']
+        ordering = ['likes', '-date']
 
     def __str__(self):
         return "Comment # " + str(self.comment_id) + \
